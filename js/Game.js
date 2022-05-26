@@ -34,20 +34,8 @@ class Game {
    // console.log(cars[0].position.x)
   }
 
-handleElements(){
-  form.hide();
-  form.titleImg.position(40, 50);
-  form.titleImg.class("gameTitleAfterEffect");
-}
 
-handlePlayerControls(){
- 
-  if (keyIsDown(UP_ARROW)) {
-    player.positionY += 30;
-    player.update();
-   
-  }
-}
+
 
   play(){
     
@@ -81,5 +69,20 @@ handlePlayerControls(){
     }
     
   }
+
+  handleElements(){
+    form.hide();
+    form.titleImg.position(40, 50);
+    form.titleImg.class("gameTitleAfterEffect");
+  }
+  handlePlayerControls(){
+   
+    if (keyIsDown(UP_ARROW)) {
+      player.positionY += 100;
+      player.update();
+     
+    }
+  }
+
  
 }
