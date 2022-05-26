@@ -5,6 +5,7 @@ class Game {
     var gameStateRef = database.ref("gameState");
     gameStateRef.on("value", function(data) {
       gameState = data.val();
+      //console.log(gameState)
     });
   }
  
@@ -14,5 +15,71 @@ class Game {
     });
   }
 
+  start(){
+    player= new Player();
+    player.getCount();
+    
+    form=new Form()
+    form.display();
+
+    car1 = createSprite(width / 2 - 50, height - 100);
+    car1.addImage("car1", car1_img);
+    car1.scale = 0.07;
+
+    car2 = createSprite(width / 2 + 100, height - 100);
+    car2.addImage("car2", car2_img);
+    car2.scale = 0.07;
+
+    cars = [car1, car2];
+   // console.log(cars[0].position.x)
+  }
+
+handleElements(){
+  form.hide();
+  form.titleImg.position(40, 50);
+  form.titleImg.class("gameTitleAfterEffect");
+}
+
+handlePlayerControls(){
+ 
+  if (keyIsDown(UP_ARROW)) {
+    player.positionY += 30;
+    player.update();
+   
+  }
+}
+
+  play(){
+    
+    this.handleElements();
+    Player.getPlayersInfo();
+    if(allPlayers!== undefined){
+      image(track,-5,-height*5,width,height*6)
+
+     var index=0;
+     for(var plr in allPlayers){
+       index++;
+      var x = allPlayers[plr].positionX
+      var y = height-allPlayers[plr].positionY
+
+      cars[index-1].position.x=x;
+      cars[index-1].position.y=y;
+      
+       if(index==player.index){
+         stroke("red")
+         strokeWeight(10)
+         ellipse(x,y,60,70)
+
+         camera.position.x=cars[index-1].position.x
+         camera.position.y=cars[index-1].position.y
+       }
+       
+      }
+      this.handlePlayerControls(); 
+      
+      drawSprites();
+    }
+    
+  }
  
 }

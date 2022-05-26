@@ -5,7 +5,8 @@ var form, player, playerCount;
 var allPlayers, car1, car2;
 var cars = [];
 
-//BP
+
+
 function preload() {
   backgroundImage = loadImage("./assets/background.png");
   car1_img = loadImage("../assets/car1.png");
@@ -13,26 +14,29 @@ function preload() {
   track = loadImage("../assets/track.jpg");
 }
 
-//BP
+
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   database = firebase.database();
+  
   game = new Game();
   game.getState();
+  
   game.start();
+  
  
 }
 
-//BP
+
 function draw() {
   background(backgroundImage);
-  if (playerCount === 2) {
-    game.update(1);
+  if(playerCount===2){
+    game.update(1)
   }
-
-  if (gameState === 1) {
-    game.play();
+  if(gameState===1){
+    game.play()
   }
+ 
 }
 
 function windowResized() {

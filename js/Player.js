@@ -9,7 +9,7 @@ class Player {
   addPlayer() {
     var playerIndex = "players/player" + this.index;
 
-    if (this.index === 1) {
+    if (this.index === 1) { 
       this.positionX = width / 2 - 100;
     } else {
       this.positionX = width / 2 + 100;
@@ -22,29 +22,49 @@ class Player {
     });
   }
  
+update(){
+  var playerIndex='players/player' + this.index
+  database.ref(playerIndex).update({
+    positionY:  this.positionY, 
+     positionX: this.positionX
+    })
+}
+  
 
-  //Bp
+
   getCount() {
     var playerCountRef = database.ref("playerCount");
     playerCountRef.on("value", data => {
       playerCount = data.val();
+     // console.log(playerCount)
     });
   }
 
-  //Bp
+  
   updateCount(count) {
     database.ref("/").update({
       playerCount: count
     });
+   // console.log(playerCount)
   }
 
  
 
-  //Bp
+  
   static getPlayersInfo() {
     var playerInfoRef = database.ref("players");
     playerInfoRef.on("value", data => {
       allPlayers = data.val();
+    });
+  }
+
+
+  getDistance() {
+    var playerDistanceRef = database.ref("players/player" + this.index);
+    playerDistanceRef.on("value", data => {
+      var data = data.val();
+      this.positionX = data.positionX;
+      this.positionY = data.positionY;
     });
   }
 }

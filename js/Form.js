@@ -4,13 +4,15 @@ class Form {
     this.playButton = createButton("Play");
     this.titleImg = createImg("./assets/title.png", "game title");
     this.greeting = createElement("h2");
+    this.reset=createButton("reset")
   }
 
   setElementsPosition() {
-    this.titleImg.position(120, 160);
+    this.titleImg.position(120, 60);
     this.input.position(width / 2 - 110, height / 2 - 80);
     this.playButton.position(width / 2 - 90, height / 2 - 20);
     this.greeting.position(width / 2 - 300, height / 2 - 100);
+    
   }
 
   setElementsStyle() {
@@ -20,28 +22,29 @@ class Form {
     this.greeting.class("greeting");
   }
 
-  //BP
+  
   hide() {
     this.greeting.hide();
     this.playButton.hide();
     this.input.hide();
   }
 
-  //BP
+  
   handleMousePressed() {
+    this.reset.mousePressed(()=>{database.ref('/').update({players:null, gameState: 0, playerCount: 0})})
+
     this.playButton.mousePressed(() => {
       this.input.hide();
       this.playButton.hide();
-      var message = `
-      Hello ${this.input.value()}
-      </br>wait for another player to join...`;
+      var message = `Hello ${this.input.value()} </br>wait for another player to join...`;
       this.greeting.html(message);
-      playerCount += 1; //Changed
+      playerCount += 1; 
       player.name = this.input.value();
       player.index = playerCount;
       player.addPlayer();
-      player.updateCount(playerCount); // BP
-      player.getDistance(); //BP
+      player.updateCount(playerCount); 
+      player.getDistance();
+    
     });
   }
 
@@ -49,5 +52,6 @@ class Form {
     this.setElementsPosition();
     this.setElementsStyle();
     this.handleMousePressed();
+    this.reset.position(width-200,50)
   }
 }
